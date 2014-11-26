@@ -60,6 +60,12 @@ public class MailClient
        server.post(emailToSend);
    }
    
-   
+   /**
+    * Nos muestra cuantos emails tenemos en el servidor para nosotros
+    */
+   public int howManyMailItems()
+   {
+       return server.howManyMailItems(user);
+   }
 }
 
