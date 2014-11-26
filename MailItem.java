@@ -11,16 +11,21 @@ public class MailItem
     private String to;
     //Almacena el contenido del mensaje
     private String message;
+    
+    private String subject;
 
     /**
      * Constructor for objects of class MailItem
      */
-    public MailItem(String from, String to,String message)
+    public MailItem(String from, String to, String subject, String message)
     {
         // initialise instance variables
         this.from = from ;
         this.to = to;
+        this.subject = subject;
         this.message = message;
+        
+        
     }
 
     /**
@@ -51,7 +56,9 @@ public class MailItem
     {
         System.out.println("from: " + from);
         System.out.println("to: " + to);
+        System.out.println("subject: " + subject);
         System.out.println("message: " + message);
+        
         
     }
     

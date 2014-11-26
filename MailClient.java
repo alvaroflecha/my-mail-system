@@ -54,9 +54,9 @@ public class MailClient
    /**
     * envia un correo a la direccion indicada con el contenido pasado por parametro
     */
-   public void sendMailItem(String to, String message)
+   public void sendMailItem(String to, String message, String subject)
    {
-       MailItem emailToSend = new MailItem(user, to, message);
+       MailItem emailToSend = new MailItem(user, to,subject, message);
        server.post(emailToSend);
    }
    
