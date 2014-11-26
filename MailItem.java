@@ -1,26 +1,26 @@
 
 /**
- * Write a description of class MailItem here.
+ * Representa un mensaje de email
  * 
- * @author (your name) 
- * @version (a version number or a date)
  */
 public class MailItem
 {
-    // instance variables - replace the example below with your own
+    //Almacena que direccion envia  el mensaje
     private String from;
+    //almacena para que direccion es el mensaje
     private String to;
+    //Almacena el contenido del mensaje
     private String message;
 
     /**
      * Constructor for objects of class MailItem
      */
-    public MailItem(String newFrom, String newTo,String newMessage)
+    public MailItem(String from, String to,String message)
     {
         // initialise instance variables
-        from = newFrom ;
-        to = newTo;
-        message = newMessage;
+        this.from = from ;
+        this.to = to;
+        this.message = message;
     }
 
     /**
@@ -45,7 +45,7 @@ public class MailItem
         return message;
     }
     /**
-     * Muestra los atributos
+     * Muestra por pantalla los datos de email
      */
     public void print()
     {
