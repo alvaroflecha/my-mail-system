@@ -67,5 +67,20 @@ public class MailClient
    {
        return server.howManyMailItems(user);
    }
+   
+   public void getNextMailItemAndAutorespond()
+   {
+      MailItem correoOriginal = server.getNextMailItem(user);
+        if(correoOriginal != null)
+        {
+           String to = correoOriginal.getFrom();
+           String subject = "RE: "+ correoOriginal.getSubject();
+           String message = correoOriginal.getMessage() + "\nEstamos de vacaciones, gracias por contactar";
+           MailItem correoNuevo = new MailItem (user,to, subject, message);
+           sendMailItem(to, subject, message);     
+        }
+       
+    
+   }
 }
 
