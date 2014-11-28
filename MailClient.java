@@ -12,6 +12,8 @@ public class MailClient
     //Direccion de correo del usuario
     private String user;
     
+    private MailItem lastEmail;
+    
     /**
      * Constructor for objects of class MailClient
      */
@@ -20,6 +22,9 @@ public class MailClient
         // initialise instance variables
         this.server = server ;
         this.user =user;
+        lastEmail = null;
+        
+      
     }
 
     /**
@@ -30,7 +35,9 @@ public class MailClient
         //MailItem email = server.getNextMailItem(user); //se puede hacer con o sin variable local
         //return email;
         
-        return server.getNextMailItem (user); // sobre mi objeto server invoco el metodo que está en otra clase y que nos vale
+        lastEmail= server.getNextMailItem (user); 
+        return lastEmail;
+        // sobre mi objeto server invoco el metodo que está en otra clase y que nos vale
         //entre parentesis ponemos donde tenemos almacenado el usuario del que quiero recuperar el email
         
     }
@@ -39,15 +46,15 @@ public class MailClient
      */
    public void printNextMailItem()
    {
-       MailItem email = server.getNextMailItem(user);
-       if (email == null)//si no hay mensajes en el servidor
+       
+       if (lastEmail == null)//si no hay mensajes en el servidor
        {
            System.out.println("no hay ningun mensaje");
        }
        
        else
        {
-           email.print();
+           lastEmail.print();
        }
        
    }
@@ -61,13 +68,16 @@ public class MailClient
    }
    
    /**
-    * Nos muestra cuantos emails tenemos en el servidor para nosotros
+    * Nos muestra por pantalla cuantos emails tiene el usuario
     */
-   public int howManyMailItems()
-   {
-       return server.howManyMailItems(user);
+   public void howManyMailItems()
+   {   int numberOfMails = server.howManyMailItems(user);
+       System.out.println("Numero de emails en el servidor: " + numberOfMails);
    }
    
+   /**
+    * Metodo que descarga email y responde automaticamente con un mensaje predefinido
+    */
    public void getNextMailItemAndAutorespond()
    {
       MailItem correoOriginal = server.getNextMailItem(user);
@@ -75,12 +85,28 @@ public class MailClient
         {
            String to = correoOriginal.getFrom();
            String subject = "RE: "+ correoOriginal.getSubject();
-           String message = correoOriginal.getMessage() + "\nEstamos de vacaciones, gracias por contactar";
+           String message = correoOriginal.getMessage() + "\nEstamos de vacaciones, gracias por contactar";// \n para salto de linea
            MailItem correoNuevo = new MailItem (user,to, subject, message);
-           sendMailItem(to, subject, message);     
+           server.post(correoNuevo);   
+           //sendMailItem(to,subject, message);  --> alternativa a la ultima linea
         }
        
     
+   }
+   /**
+    * Ver por pantalla cuantas veces queramos los datos del último mensaje recibido
+    */
+   public void lastEmail()
+   {
+       if (lastEmail == null)//si no hay mensajes en el servidor
+       {
+           System.out.println("no hay ningun mensaje");
+       }
+       
+       else
+       {
+           lastEmail.print();
+       }
    }
 }
 
